@@ -29,6 +29,9 @@
         <java.version>1.8</java.version>
     </properties>
 
+
+
+    <!-- Spring全家桶建议添加以下依赖-->
     <repositories>
         <repository>
             <id>spring-snapshots</id>
