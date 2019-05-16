@@ -2,11 +2,14 @@ package cn.mrain22.base.modules.controller;
 
 import cn.mrain22.base.modules.entity.Label;
 import cn.mrain22.base.modules.service.LabelService;
+import cn.mrain22.common.entity.PageResult;
 import cn.mrain22.common.entity.ServerResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Xiuming Lee
@@ -74,5 +77,27 @@ public class LabelController {
         return ServerResult.createBySuccessMessage("删除成功");
     }
 
+    /**
+     * 根据条件查询相关标签
+     * @param searchMap
+     * @return
+     */
+    @GetMapping(value="/search")
+    public ServerResult<List> findSearch(Map searchMap){
+        return ServerResult.createBySuccess("查询成功",labelService.findSearch(searchMap));
+    }
+
+    /**
+     * 根据条件分页查询
+     * @param searchMap
+     * @param page
+     * @param size
+     * @return
+     */
+    @PostMapping(value="/search/{page}/{size}")
+    public ServerResult findSearch(Map searchMap,@PathVariable int page,@PathVariable int size ){
+        Page pageList= labelService.findSearch(searchMap,page,size);
+        return ServerResult.createBySuccess("查询成功",PageResult.of(pageList.getTotalElements(),pageList.getTotalPages(),pageList.getContent()));
+    }
 
 }
