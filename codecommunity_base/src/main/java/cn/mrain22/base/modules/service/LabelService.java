@@ -3,6 +3,7 @@ package cn.mrain22.base.modules.service;
 import cn.mrain22.base.modules.dao.LabelDao;
 import cn.mrain22.base.modules.entity.Label;
 import cn.mrain22.common.util.IdWorker;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +14,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: Xiuming Lee
@@ -24,6 +25,7 @@ import java.util.Map;
  * @Describe: 标签业务逻辑类
  */
 @Service
+@Transactional
 public class LabelService {
     @Autowired
     private LabelDao labelDao;
@@ -81,17 +83,17 @@ public class LabelService {
 
     /**
      * 标签条件查询
-     * @param searchMap
+     * @param label
      * @return
      */
-    public List<Label> findSearch(Map searchMap){
+    public List<Label> findSearch(Label label){
         //构建查询条件
-        Specification specification= createSpecification(searchMap);
+        Specification specification= createSpecification(label);
         return labelDao.findAll( specification);
     }
-    public Page<Label> findSearch(Map searchMap, int page, int size){
+    public Page<Label> findSearch(Label label, int page, int size){
         //构建查询条件
-        Specification specification= createSpecification(searchMap);
+        Specification specification= createSpecification(label);
         //设置分页
         PageRequest pageRequest=PageRequest.of(page-1,size);
         return labelDao.findAll(specification ,pageRequest);
@@ -99,34 +101,32 @@ public class LabelService {
     /**
      * 构建条件查询
      *
-     * @param searchMap
+     * @param label
      * @return
      */
-    private Specification<Label> createSpecification(Map searchMap) {
+    private Specification<Label> createSpecification(Label label) {
         return new Specification<Label>() {
             @Override
             public Predicate toPredicate(Root<Label> root, CriteriaQuery<?>
                     criteriaQuery, CriteriaBuilder cb) {
+                //用list存储所有条件
                 List<Predicate> predicateList = new ArrayList<>();
-                if (searchMap.get("labelname") != null &&
-                        !"".equals(searchMap.get("labelname"))) {
-                    predicateList.add(cb.like(
-                            root.get("labelname").as(String.class), "%" +
-                                    (String) searchMap.get("labelname") + "%"));
+                if (StringUtils.isNoneBlank(label.getLabelname())) {
+                    //where labelname like 'xxx'
+                    Predicate labelname = cb.like(root.get("labelname").as(String.class), "%" + label.getLabelname() + "%");
+                    predicateList.add(labelname);
                 }
-                if (searchMap.get("state") != null &&
-                        !"".equals(searchMap.get("state"))) {
-                    predicateList.add(cb.equal(
-                            root.get("state").as(String.class), (String) searchMap.get("state")));
+                if (StringUtils.isNoneBlank(label.getState())) {
+                    // state = 'y'
+                    predicateList.add(cb.equal(root.get("state").as(String.class), label.getState()));
                 }
-                if (searchMap.get("recommend") != null &&
-                        !"".equals(searchMap.get("recommend"))) {
-                    predicateList.add(cb.equal(
-                            root.get("recommend").as(String.class),
-                            (String) searchMap.get("recommend")));
+                if (StringUtils.isNoneBlank(label.getRecommend())) {
+                    // recommend = 'z'
+                    predicateList.add(cb.equal(root.get("recommend").as(String.class), label.getRecommend()));
                 }
-                return cb.and(predicateList.toArray(new
-                        Predicate[predicateList.size()]));
+                //将list转换成Predicate[]数组
+                Predicate[] predicates = predicateList.toArray(new Predicate[predicateList.size()]);
+                return cb.and(predicates);
             }
         };
     }
