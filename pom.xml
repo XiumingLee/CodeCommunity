@@ -11,6 +11,7 @@
     <modules>
         <module>codecommunity_common</module>
         <module>codecommunity_base</module>
+        <module>codecommunity_recruit</module>
     </modules>
 
     <name>CodeCommunity</name>
