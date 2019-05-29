@@ -55,8 +55,7 @@ public class Recruit implements Serializable {
      */
     private LocalDateTime createtime;
     /**
-     * 状态(0：关闭 1:开启 2：推荐
-)
+     * 状态(0：关闭 1:开启 2：推荐)
      */
     private String state;
     /**

@@ -10,7 +10,7 @@ import java.util.List;
  * @Author: Xiuming Lee
  * @Date: 2019/5/20 9:18
  * @Version 1.0
- * @Describe:
+ * @Describe: 企业Dao层
  */
 public interface EnterpriseDao extends JpaRepository<Enterprise,String>,JpaSpecificationExecutor<Enterprise> {
     /**
