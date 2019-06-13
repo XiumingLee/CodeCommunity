@@ -2,7 +2,7 @@ server:
   port: 9004
 spring:
   application:
-    name: codecommunity-article
+    name: codecommunity-friend
   jpa:
     database: mysql
     show-sql: true
