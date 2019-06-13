@@ -1,0 +1,16 @@
+server:
+  port: 9003
+spring:
+  application:
+    name: codecommunity-qa
+  jpa:
+    database: mysql
+    show-sql: true
+
+#数据库连接在application.properties配置了，未上传
+#spring
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url:
+#    username:
+#    password:

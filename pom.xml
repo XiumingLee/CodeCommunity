@@ -12,6 +12,11 @@
         <module>codecommunity_common</module>
         <module>codecommunity_base</module>
         <module>codecommunity_recruit</module>
+        <module>codecommunity_qa</module>
+        <module>codecommunity_article</module>
+        <module>codecommunity_friend</module>
+        <module>codecommunity_gathering</module>
+        <module>codecommunity_user</module>
     </modules>
 
     <name>CodeCommunity</name>
