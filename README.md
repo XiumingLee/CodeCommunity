@@ -6,6 +6,6 @@
 > - `codecommunity_article`：文章微服务
 > - `codecommunity_qa`：问答微服务
 > - `codecommunity_friend`
-> - `codecommunity_gathering`
+> - `codecommunity_gathering`：活动微服务
 > - `codecommunity_user`
 

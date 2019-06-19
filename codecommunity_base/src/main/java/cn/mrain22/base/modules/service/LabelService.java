@@ -25,7 +25,7 @@ import java.util.List;
  * @Describe: 标签业务逻辑类
  */
 @Service
-@Transactional
+@Transactional(rollbackOn=Exception.class)
 public class LabelService {
     @Autowired
     private LabelDao labelDao;

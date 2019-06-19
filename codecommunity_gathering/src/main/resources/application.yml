@@ -7,7 +7,7 @@ spring:
     database: mysql
     show-sql: true
 
-#数据库连接在application.properties配置了，未上传
+#数据库连接在application.properties配置了
 #spring
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
