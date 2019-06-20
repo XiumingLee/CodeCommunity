@@ -17,6 +17,7 @@
         <module>codecommunity_friend</module>
         <module>codecommunity_gathering</module>
         <module>codecommunity_user</module>
+        <module>codecommunity_spit</module>
     </modules>
 
     <name>CodeCommunity</name>

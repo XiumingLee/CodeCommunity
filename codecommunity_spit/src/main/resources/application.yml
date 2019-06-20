@@ -1,0 +1,10 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: codecommunity-spit
+  data:
+    mongodb:
+      uri: mongodb://ming:123456@127.0.0.1:27017/mingdb
+  redis:
+    host: 127.0.0.1
